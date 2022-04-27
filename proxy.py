@@ -33,4 +33,4 @@ while True:
     #         'X-AIO-Key': 'aio_NmDN7114NKG08q56uoHiKtBNLwWy'
     #     }, json={'value': 1}).json()
 
-    print(f1, f2, f3)
+    # print(f1, f2, f3)

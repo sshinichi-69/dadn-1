@@ -11,8 +11,8 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 class CreateTempAndHumidRequest(BaseModel):
-    temp: int
-    humid: int
+    temp: float
+    humid: float
 
 
 class SetFanRequest(BaseModel):

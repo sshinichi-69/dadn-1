@@ -118,7 +118,7 @@
                     'Host': 'io.adafruit.com',
                     'Content-Length': '24',
                     'Content-Type': 'application/json',
-                    'X-AIO-Key': 'aio_NmDN7114NKG08q56uoHiKtBNLwWy'
+                    'X-AIO-Key': 'aio_kBPu85JguDIdyNTlZ68yVtOvrhow'
                 },
                 data: JSON.stringify({"value": value}),
                 processData: false,
@@ -140,7 +140,7 @@
                     'Host': 'io.adafruit.com',
                     'Content-Length': '24',
                     'Content-Type': 'application/json',
-                    'X-AIO-Key': 'aio_NmDN7114NKG08q56uoHiKtBNLwWy'
+                    'X-AIO-Key': 'aio_kBPu85JguDIdyNTlZ68yVtOvrhow'
                 },
                 data: JSON.stringify({"value": value}),
                 processData: false,
@@ -162,7 +162,7 @@
                     'Host': 'io.adafruit.com',
                     'Content-Length': '24',
                     'Content-Type': 'application/json',
-                    'X-AIO-Key': 'aio_NmDN7114NKG08q56uoHiKtBNLwWy'
+                    'X-AIO-Key': 'aio_kBPu85JguDIdyNTlZ68yVtOvrhow'
                 },
                 data: JSON.stringify({"value": value}),
                 processData: false,
@@ -488,18 +488,18 @@
             }
         }
         function getTemperature(mode = true) {
-            $.getJSON("https://io.adafruit.com/api/v2/khanhad69/feeds/iot-dadn.house-temp", function(data) {
-                if (data.updated_at == lastTemperature.updated_at) {
+            $.getJSON("http://localhost:8000/list-temp-and-humid", function(data) {
+                if (data[0].record_time == lastTemperature.updated_at) {
                     if (mode) {
                         updateTemperatureData(NaN, NaN);
                     }
                 }
                 else {
-                    lastTemperature.value = data.last_value;
+                    lastTemperature.value = data[0].temp;
                     document.getElementById("temperature").innerHTML = lastTemperature.value;
-                    lastTemperature.updated_at = data.updated_at;
+                    lastTemperature.updated_at = data[0].record_time;
                     if (mode) {
-                        updateTemperatureData(data.updated_at, data.last_value);
+                        updateTemperatureData(data[0].record_time, data[0].temp);
                     }
                 }
                 autoControlFan();
@@ -513,18 +513,18 @@
             updated_at: ""
         }
         function getHumidity(mode = true) {
-            $.getJSON("https://io.adafruit.com/api/v2/khanhad69/feeds/iot-dadn.house-humid", function(data) {
-                if (data.updated_at == lastHumidity.updated_at) {
+            $.getJSON("http://localhost:8000/list-temp-and-humid", function(data) {
+                if (data[0].record_time == lastHumidity.updated_at) {
                     if (mode) {
                         updateHumidityData(NaN, NaN);
                     }
                 }
                 else {
-                    lastHumidity.value = data.last_value;
-                    document.getElementById("humidity").innerHTML = data.last_value;
-                    lastHumidity.updated_at = data.updated_at;
+                    lastHumidity.value = data[0].humid;
+                    document.getElementById("humidity").innerHTML = data[0].humid;
+                    lastHumidity.updated_at = data[0].record_time;
                     if (mode) {
-                        updateHumidityData(data.updated_at, data.last_value);
+                        updateHumidityData(data[0].record_time, data[0].humid);
                     }
                 }
             })
